@@ -13,7 +13,7 @@
     <!-- شريط جانبي -->
     <div class="sidebar" id="sidebar">
         <a href="#mushaf" class="sidebar-link" data-tooltip="المصحف الناطق"><i class="fas fa-book-quran"></i><span class="sidebar-label">الناطق</span></a>
-        <a href="#quran-audio" class="sidebar-link" data-tooltip="التلاوات الصوتية"><i class="fas fa-headphones"></i><span class="sidebar-label">صوتيات</span></a>
+        <a href="#occasions" class="sidebar-link" data-tooltip="أدعية للمتوفى"><i class="fas fa-calendar-days"></i><span class="sidebar-label">أدعية المتوفى</span></a>
         <a href="#azkar" class="sidebar-link" data-tooltip="الأذكار"><i class="fas fa-hands-praying"></i><span class="sidebar-label">الأذكار</span></a>
         <a href="#ruqyah" class="sidebar-link" data-tooltip="الرقية الشرعية"><i class="fas fa-shield-halved"></i><span class="sidebar-label">الرقية</span></a>
         <a href="#dua" class="sidebar-link" data-tooltip="أدعية قرآنية"><i class="fas fa-mosque"></i><span class="sidebar-label">الأدعية</span></a>
@@ -101,53 +101,12 @@
             </div>
         </section>
 
-        <!-- التلاوات الصوتية -->
-        <section id="quran-audio" class="section section-alt">
+        <!-- أدعية للمتوفى -->
+        <section id="occasions" class="section section-alt">
             <div class="container">
-                <h2 class="section-title"><i class="fas fa-headphones"></i> التلاوات الصوتية</h2>
-                <div class="audio-select-row">
-                    <div class="control-row">
-                        <div class="control-icon-group">
-                            <div class="control-icon-circle" id="reciterIconAudio">
-                                <i class="fas fa-microphone"></i>
-                            </div>
-                            <select id="audioReciter" onchange="onAudioReciterChange()">
-                                <option value="ar.alafasy">مشاري العفاسي</option>
-                                <option value="ar.husary">محمود خليل الحصري</option>
-                                <option value="ar.minshawi">محمد صديق المنشاوي</option>
-                                <option value="ar.muhammadjibreel">محمد جبريل</option>
-                                <option value="ar.hudhaify">علي الحذيفي</option>
-                            </select>
-                        </div>
-                        <div class="control-icon-group search-group">
-                            <div class="control-icon-circle" id="searchIconAudio">
-                                <i class="fas fa-search"></i>
-                            </div>
-                            <input type="text" id="surahSearch" placeholder="ابحث عن السورة..." oninput="filterSurahList()">
-                        </div>
-                    </div>
-                </div>
-                <div class="surah-list" id="surahList"></div>
-                <div class="audio-player" id="audioPlayer">
-                    <div class="player-info">
-                        <div class="now-playing" id="nowPlaying">اختر السورة للاستماع</div>
-                        <div class="reciter-name" id="currentReciterName">مشاري العفاسي</div>
-                    </div>
-                    <div class="player-controls">
-                        <button class="play-btn" id="playBtn" onclick="togglePlay()"><i class="fas fa-play" id="playIcon"></i></button>
-                        <div class="progress-container" onclick="seekAudio(event)">
-                            <div class="progress-bar" id="progressBar"></div>
-                        </div>
-                        <div class="time-info">
-                            <span id="audioCurrentTime">0:00</span>
-                            <span id="audioDuration">0:00</span>
-                        </div>
-                        <div class="volume-control">
-                            <i class="fas fa-volume-up"></i>
-                            <input type="range" id="volumeSlider" min="0" max="100" value="80" oninput="changeVolume()">
-                        </div>
-                    </div>
-                </div>
+                <h2 class="section-title"><i class="fas fa-hand-holding-heart"></i> أدعية للمتوفى</h2>
+                <p class="section-subtitle">ادعُ للمغفور له محمد عبد العظيم أحمد بالرحمة والمغفرة</p>
+                <div class="occasions-list" id="occasionsList"></div>
             </div>
         </section>
 

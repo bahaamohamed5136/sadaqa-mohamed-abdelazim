@@ -217,6 +217,70 @@ const duaData = [
     { title: "دعاء الخروج من المسجد", text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ", source: "رواه مسلم" }
 ];
 
+// ==================== أدعية للمتوفى ====================
+const occasionsData = [
+    {
+        title: "دعاء للمتوفى عند الزينة",
+        text: "اللَّهُمَّ اغْفِرْ لِحَيِّنَا وَمَيِّتِنَا، وَشَاهِدِنَا وَغَائِبِنَا، وَصَغِيرِنَا وَكَبِيرِنَا، وَذَكَرِنَا وَأُنْثَانَا",
+        source: "رواه أبو داود والترمذي والنسائي",
+        note: "يُقال عند ذكر المتوفى أو عند انتهاء تلاوة القرآن"
+    },
+    {
+        title: "دعاء للمتوفى في الصلاة",
+        text: "اللَّهُمَّ اغْفِرْ لِأُمَّةِ مُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، اللَّهُمَّ اهْدِ أُمَّةَ مُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، اللَّهُمَّ ارْحَمْ أُمَّةَ مُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ",
+        source: "رواه مسلم",
+        note: "تُقال في التشهيد الأخير"
+    },
+    {
+        title: "دعاء للمتوفى في الفجر والمغرب",
+        text: "اللَّهُمَّ اغْفِرْ لِأَبِي وَارْحَمْهُ وَعَافِهِ وَاعْفُ عَنْهُ، وَأَكْرِمْ نُزُلَهُ، وَوَسِّعْ مُدْخَلَهُ، وَاغْسِلْهُ بِالْمَاءِ وَالثَّلْجِ وَالْبَرَدِ",
+        source: "رواه مسلم",
+        note: "تُقال بعد السلام من الصلاة المفروضة — عوّض كلمة 'أبي' باسم المتوفى"
+    },
+    {
+        title: "دعاء للمتوفى عند قراءة القرآن",
+        text: "اللَّهُمَّ اغْفِرْ لَنَا وَلِإِخْوَانِنَا الَّذِينَ سَبَقُونَا بِالإِيمَانِ، وَلاَ تَجْعَلْ فِي قُلُوبِنَا غِلًّا لِلَّذِينَ آمَنُوا، رَبَّنَا إِنَّكَ رَءُوفٌ رَحِيمٌ",
+        source: "سورة الحشر - آية 10",
+        note: "يُقرأ بعد تلاوة سورة الحشر ويُهدى الأجر للمتوفى"
+    },
+    {
+        title: "دعاء للمتوفى عند الصدقة",
+        text: "اللَّهُمَّ تَقَبَّلْ مِنَّا إِنَّكَ أَنْتَ السَّمِيعُ العَلِيمُ، وَتُبْ عَلَيْنَا إِنَّكَ أَنْتَ التَّوَّابُ الرَّحِيمُ",
+        source: "سورة البقرة - آية 127",
+        note: "يُقال عند إهداء الصدقة للمتوفى"
+    },
+    {
+        title: "دعاء للمتوفى عند تحليل القرآن",
+        text: "اللَّهُمَّ ارْحَمْ مَوْتَانَا وَمَوْتَى الْمُسْلِمِينَ أَجْمَعِينَ، وَاغْفِرْ لَهُمْ وَارْحَمْهُمْ، وَأَلْحِقْهُمْ بِالصَّالِحِينَ",
+        source: "من الدعاء المأثور",
+        note: "يُقال بعد الانتهاء من ختم القرآن"
+    },
+    {
+        title: "دعاء للمتوفى في ليلة القدر",
+        text: "اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي",
+        source: "رواه الترمذي",
+        note: "يُقال في العشر الأواخر — والأجر يُهدى للمتوفى"
+    },
+    {
+        title: "دعاء للمتوفى عند زيارة القبر",
+        text: "السَّلامُ عَلَيْكُمْ أَهْلَ الدِّيارِ، مِنَ الْمُؤْمِنِينَ وَالْمُسْلِمِينَ، إِنَّا إِنْ شَاءَ اللَّهُ بِكُمْ لاحِقُونَ، نَسْأَلُ اللَّهَ لَنَا وَلَكُمُ الْعَافِيَةَ",
+        source: "رواه مسلم",
+        note: "يُقال عند زيارة قبر المتوفى"
+    },
+    {
+        title: "سورة الإخلاص للمتوفى",
+        text: "قُلْ هُوَ اللَّهُ أَحَدٌ، اللَّهُ الصَّمَدُ، لَمْ يَلِدْ وَلَمْ يُولَدْ، وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ",
+        source: "سورة الإخلاص — من أقصر السور وأعظمها أجراً",
+        note: "يُقرأ 11 مرة ويُهدى الأجر للمتوفى — يُقال 'اللهم اقرأ على [اسم المتوفى]'"
+    },
+    {
+        title: "الدعاء للمتوفى بعد صلاة الفجر والمغرب",
+        text: "اللَّهُمَّ اغْفِرْ لِحَيِّنَا وَمَيِّتِنَا، وَشَاهِدِنَا وَغَائِبِنَا، وَصَغِيرِنَا وَكَبِيرِنَا، وَذَكَرِنَا وَأُنْثَانَا، اللَّهُمَّ مَنْ أَحْيَيْتَهُ مِنَّا فَأَحْيِهِ عَلَى الإِسْلامِ، وَمَنْ أَمَتَّهُ فَأَمِتْهُ عَلَى الإِيمَانِ",
+        source: "رواه أبو داود والترمذي",
+        note: "دعاء جامع للمتوفى والأحياء"
+    }
+];
+
 // ==================== STATE ====================
 var mushafCurrentReciter = 'ar.alafasy';
 var mushafCurrentSurah = null;
@@ -225,18 +289,13 @@ var mushafAyahs = [];
 var mushafCurrentAyahIndex = 0;
 var mushafAudio = document.getElementById('mushafAudio');
 
-var currentReciter = 'ar.alafasy';
-var currentSurah = null;
-var isPlaying = false;
-var audio = document.getElementById('mainAudio');
-
 // ==================== INIT ====================
 function init() {
     populateSurahSelects();
-    renderSurahList();
     renderAzkar();
     renderRuqyah();
     renderDua();
+    renderOccasions();
     initPrayerTimes();
     initSidebar();
     initScrollTop();
@@ -295,29 +354,6 @@ function populateSurahSelects() {
             opt.textContent = s.number + ' - ' + s.name;
             sel.appendChild(opt);
         });
-    });
-}
-
-function renderSurahList() {
-    var container = document.getElementById('surahList');
-    if (!container) return;
-    var html = '';
-    surahs.forEach(function(s) {
-        html += '<div class="surah-item" data-name="' + s.name + ' ' + s.englishName + '" data-number="' + s.number + '" onclick="playAudioSurahById(' + s.number + ')">';
-        html += '<span class="surah-num">' + s.number + '</span>';
-        html += '<span>' + s.name + '</span>';
-        html += '</div>';
-    });
-    container.innerHTML = html;
-}
-
-function filterSurahList() {
-    var val = document.getElementById('surahSearch').value.trim();
-    var items = document.querySelectorAll('.surah-item');
-    items.forEach(function(item) {
-        var name = item.dataset.name || '';
-        var num = item.dataset.number || '';
-        item.style.display = (name.includes(val) || num.includes(val)) ? 'flex' : 'none';
     });
 }
 
@@ -454,86 +490,6 @@ function scrollToAyah(index) {
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
-// ==================== QURAN AUDIO PLAYER ====================
-function onAudioReciterChange() {
-    currentReciter = document.getElementById('audioReciter').value;
-    document.getElementById('currentReciterName').textContent = recitersCDN[currentReciter].name;
-}
-
-function playAudioSurahById(num) {
-    document.querySelectorAll('.surah-item').forEach(function(i) { i.classList.remove('active'); });
-    var items = document.querySelectorAll('.surah-item');
-    items.forEach(function(item) {
-        if (parseInt(item.dataset.number) === num) item.classList.add('active');
-    });
-    currentSurah = num;
-    var surah = surahs.find(function(s) { return s.number === num; });
-    var url = getCdnSurahUrl(currentReciter, num, 128);
-    document.getElementById('nowPlaying').textContent = surah.number + ' - ' + surah.name;
-    audio.src = url;
-    audio.load();
-    audio.play().then(function() {
-        isPlaying = true;
-        updatePlayBtn();
-    }).catch(function(e) {
-        console.log('First URL failed, trying fallback:', e);
-        audio.src = getCdnSurahUrl(currentReciter, num, 64);
-        audio.load();
-        audio.play().then(function() { isPlaying = true; updatePlayBtn(); }).catch(function() {
-            audio.src = getCdnSurahUrl(currentReciter, num, 32);
-            audio.load();
-            audio.play().then(function() { isPlaying = true; updatePlayBtn(); }).catch(function(e2) {
-                console.log('All CDNs failed for', currentReciter, num, e2);
-            });
-        });
-    });
-}
-
-function togglePlay() {
-    if (!audio.src || audio.src === window.location.href) return;
-    if (isPlaying) { audio.pause(); } else { audio.play().catch(function() {}); }
-    isPlaying = !isPlaying;
-    updatePlayBtn();
-}
-
-function updatePlayBtn() {
-    var icon = document.getElementById('playIcon');
-    if (icon) icon.className = isPlaying ? 'fas fa-pause' : 'fas fa-play';
-}
-
-function seekAudio(e) {
-    if (audio.duration) {
-        var rect = e.currentTarget.getBoundingClientRect();
-        var pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-        audio.currentTime = pct * audio.duration;
-    }
-}
-
-function changeVolume() {
-    audio.volume = document.getElementById('volumeSlider').value / 100;
-}
-
-audio.addEventListener('timeupdate', function() {
-    if (audio.duration) {
-        var pct = (audio.currentTime / audio.duration) * 100;
-        document.getElementById('progressBar').style.width = pct + '%';
-        document.getElementById('audioCurrentTime').textContent = formatTime(audio.currentTime);
-    }
-});
-
-audio.addEventListener('loadedmetadata', function() {
-    document.getElementById('audioDuration').textContent = formatTime(audio.duration);
-});
-
-audio.addEventListener('ended', function() {
-    var next = currentSurah + 1;
-    if (next <= 114) playAudioSurahById(next);
-    else { isPlaying = false; updatePlayBtn(); }
-});
-
-audio.addEventListener('play', function() { isPlaying = true; updatePlayBtn(); });
-audio.addEventListener('pause', function() { isPlaying = false; updatePlayBtn(); });
-
 // ==================== AZKAR ====================
 function renderAzkar() {
     renderAzkarList('azkarMorning', azkarMorning);
@@ -605,6 +561,21 @@ function renderDua() {
         html += '<h3>' + d.title + '</h3>';
         html += '<div class="dua-text">' + d.text.replace(/\n/g, '<br>') + '</div>';
         html += '<div class="dua-source"><i class="fas fa-bookmark"></i> ' + d.source + '</div>';
+        html += '</div>';
+    });
+    container.innerHTML = html;
+}
+
+function renderOccasions() {
+    var container = document.getElementById('occasionsList');
+    if (!container) return;
+    var html = '';
+    occasionsData.forEach(function(d) {
+        html += '<div class="dua-card occasion-card">';
+        html += '<h3><i class="fas fa-hand-holding-heart"></i> ' + d.title + '</h3>';
+        html += '<div class="dua-text">' + d.text.replace(/\n/g, '<br>') + '</div>';
+        html += '<div class="dua-source"><i class="fas fa-bookmark"></i> ' + d.source + '</div>';
+        if (d.note) html += '<div class="occasion-note"><i class="fas fa-info-circle"></i> ' + d.note + '</div>';
         html += '</div>';
     });
     container.innerHTML = html;
