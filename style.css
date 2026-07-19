@@ -172,7 +172,8 @@ header h1 { font-size: 2.5rem; margin-bottom: 15px; color: var(--gold); text-sha
 .current-time { font-size: 1.3rem; font-weight: 700; }
 
 /* ===== الأقسام ===== */
-.section { padding: 60px 0; }
+.section { padding: 60px 0; display: none; }
+.section.active-section { display: block; }
 .section-alt { background: var(--white); }
 .section-title { text-align: center; font-size: 2rem; color: var(--primary-green); margin-bottom: 15px; position: relative; padding-bottom: 15px; }
 .section-title::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 100px; height: 3px; background: linear-gradient(90deg, var(--gold), var(--primary-green), var(--gold)); border-radius: 2px; }
@@ -189,7 +190,7 @@ header h1 { font-size: 2.5rem; margin-bottom: 15px; color: var(--gold); text-sha
 .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(26,107,60,0.4); }
 
 /* ===== عناصر التحكم ===== */
-.mushaf-controls, .pdf-controls, .audio-select-row {
+.mushaf-controls, .audio-select-row {
     background: var(--white); padding: 20px; border-radius: 12px;
     box-shadow: var(--shadow); margin-bottom: 20px;
     display: flex; gap: 15px; align-items: flex-end; flex-wrap: wrap; justify-content: center;
@@ -204,14 +205,14 @@ header h1 { font-size: 2.5rem; margin-bottom: 15px; color: var(--gold); text-sha
 .control-group select:focus, .control-group input:focus { outline: none; border-color: var(--primary-green); }
 
 /* ===== مشغل المصحف الناطق ===== */
-.mushaf-player, .audio-player, .pdf-player {
+.mushaf-player, .audio-player {
     background: linear-gradient(135deg, var(--primary-dark), var(--primary-green));
     border-radius: 15px; padding: 25px; color: var(--white); box-shadow: var(--shadow-lg); margin-bottom: 20px;
 }
-.mushaf-player-header, .player-info, .pdf-player-header { text-align: center; margin-bottom: 15px; }
-.mushaf-now-playing, .now-playing, .pdf-now-playing { font-size: 1.3rem; font-weight: 700; margin-bottom: 5px; }
+.mushaf-player-header, .player-info { text-align: center; margin-bottom: 15px; }
+.mushaf-now-playing, .now-playing { font-size: 1.3rem; font-weight: 700; margin-bottom: 5px; }
 .mushaf-reciter-label, .reciter-name { font-size: 0.9rem; color: var(--gold-light); }
-.mushaf-player-controls, .player-controls, .pdf-player-controls { display: flex; flex-direction: column; align-items: center; gap: 15px; }
+.mushaf-player-controls, .player-controls { display: flex; flex-direction: column; align-items: center; gap: 15px; }
 
 .play-btn {
     width: 60px; height: 60px; border-radius: 50%; background: var(--gold);
@@ -289,28 +290,7 @@ header h1 { font-size: 2.5rem; margin-bottom: 15px; color: var(--gold); text-sha
 
 .ayah-item.active .ayah-text { color: #8B6914; font-weight: 700; }
 
-/* ===== المصحف PDF ===== */
-.pdf-pages-container {
-    background: var(--cream);
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: var(--shadow);
-    max-height: 700px;
-    overflow-y: auto;
-    text-align: center;
-}
-
-.pdf-loading { text-align: center; padding: 40px; color: var(--text-light); font-size: 1.2rem; }
-
-.pdf-page-img {
-    max-width: 100%;
-    margin: 10px auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    display: block;
-}
-
-.current-ayah-display {
+/* ===== العرض الحالي ===== */
     background: linear-gradient(135deg, #fff8dc, #faf0d7);
     border: 2px solid var(--gold);
     border-radius: 12px;
@@ -499,7 +479,7 @@ footer { background: linear-gradient(135deg, var(--primary-dark), var(--primary-
     .parent-name { font-size: 1.5rem; }
     .section-title { font-size: 1.5rem; }
     .prayer-info { flex-direction: column; gap: 10px; }
-    .mushaf-controls, .pdf-controls, .audio-select-row { flex-direction: column; }
+    .mushaf-controls, .audio-select-row { flex-direction: column; }
     .control-group select, .control-group input[type="text"] { min-width: 100%; }
     .surah-list { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
     .azkar-tabs { flex-direction: column; align-items: center; }
@@ -515,8 +495,7 @@ footer { background: linear-gradient(135deg, var(--primary-dark), var(--primary-
 /* ===== Animations ===== */
 @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
-@keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-.section { animation: fadeIn 0.5s ease-out; }
+.section.active-section { animation: fadeIn 0.4s ease-out; }
 .sidebar-link.active i { animation: pulse 2s ease-in-out infinite; }
 
 /* ===== Custom Scrollbar ===== */

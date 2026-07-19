@@ -10,19 +10,15 @@
 </head>
 <body>
 
-    <!-- شريط جانبي بالأيقونات -->
+    <!-- شريط جانبي -->
     <div class="sidebar" id="sidebar">
         <a href="#mushaf" class="sidebar-link" data-tooltip="المصحف الناطق"><i class="fas fa-book-quran"></i><span class="sidebar-label">الناطق</span></a>
-        <a href="#mushaf-pdf" class="sidebar-link" data-tooltip="المصحف PDF"><i class="fas fa-file-pdf"></i><span class="sidebar-label">PDF</span></a>
         <a href="#quran-audio" class="sidebar-link" data-tooltip="التلاوات الصوتية"><i class="fas fa-headphones"></i><span class="sidebar-label">صوتيات</span></a>
         <a href="#azkar" class="sidebar-link" data-tooltip="الأذكار"><i class="fas fa-hands-praying"></i><span class="sidebar-label">الأذكار</span></a>
         <a href="#ruqyah" class="sidebar-link" data-tooltip="الرقية الشرعية"><i class="fas fa-shield-halved"></i><span class="sidebar-label">الرقية</span></a>
         <a href="#dua" class="sidebar-link" data-tooltip="أدعية قرآنية"><i class="fas fa-mosque"></i><span class="sidebar-label">الأدعية</span></a>
         <a href="#prayer-times" class="sidebar-link" data-tooltip="مواقيت الصلاة"><i class="fas fa-clock"></i><span class="sidebar-label">الصلاة</span></a>
     </div>
-
-    <!-- زر الموبايل لفتح الشريط الجانبي -->
-    <button class="sidebar-toggle" id="sidebarToggle"><i class="fas fa-bars"></i></button>
 
     <div class="floating-bg"><div class="pattern"></div></div>
 
@@ -97,58 +93,8 @@
             </div>
         </section>
 
-        <!-- المصحف PDF -->
-        <section id="mushaf-pdf" class="section section-alt">
-            <div class="container">
-                <h2 class="section-title"><i class="fas fa-file-pdf"></i> المصحف الشريف - PDF</h2>
-                <p class="section-subtitle">اقرأ المصحف بصور عالية الجودة مع التلاوة الصوتية المتزامنة</p>
-                <div class="pdf-controls">
-                    <div class="control-group">
-                        <label><i class="fas fa-user"></i> القارئ</label>
-                        <select id="pdfReciter">
-                            <option value="ar.alafasy">مشاري العفاسي</option>
-                            <option value="ar.husary">محمود خليل الحصري</option>
-                            <option value="ar.minshawi">محمد صديق المنشاوي</option>
-                            <option value="ar.muhammadjibreel">محمد جبريل</option>
-                            <option value="ar.hudhaify">علي الحذيفي</option>
-                        </select>
-                    </div>
-                    <div class="control-group">
-                        <label><i class="fas fa-list"></i> السورة</label>
-                        <select id="pdfSurah"></select>
-                    </div>
-                    <button class="btn-primary" onclick="loadPdfMushaf()"><i class="fas fa-book-open"></i> ابدأ القراءة</button>
-                </div>
-                <div class="pdf-player" id="pdfPlayer">
-                    <div class="pdf-player-header">
-                        <div class="pdf-now-playing" id="pdfNowPlaying">اختر السورة والقارئ ثم اضغط ابدأ القراءة</div>
-                    </div>
-                    <div class="pdf-player-controls">
-                        <button class="play-btn" id="pdfPlayBtn" onclick="togglePdfPlay()"><i class="fas fa-play" id="pdfPlayIcon"></i></button>
-                        <div class="progress-container" onclick="seekPdf(event)">
-                            <div class="progress-bar" id="pdfProgressBar"></div>
-                        </div>
-                        <div class="time-info">
-                            <span id="pdfCurrentTime">0:00</span>
-                            <span id="pdfDuration">0:00</span>
-                        </div>
-                        <div class="volume-control">
-                            <i class="fas fa-volume-up"></i>
-                            <input type="range" id="pdfVolume" min="0" max="100" value="80" oninput="changePdfVolume()">
-                        </div>
-                    </div>
-                </div>
-                <div class="current-ayah-display" id="currentAyahDisplay">
-                    <div class="ayah-text" id="ayahText">الآية الحالية ستظهر هنا...</div>
-                </div>
-                <div class="pdf-pages-container" id="pdfPagesContainer">
-                    <div class="pdf-loading"><i class="fas fa-spinner fa-spin"></i> <span>اختر سورة لعرض صفحات المصحف...</span></div>
-                </div>
-            </div>
-        </section>
-
         <!-- التلاوات الصوتية -->
-        <section id="quran-audio" class="section">
+        <section id="quran-audio" class="section section-alt">
             <div class="container">
                 <h2 class="section-title"><i class="fas fa-headphones"></i> التلاوات الصوتية</h2>
                 <div class="audio-select-row">
@@ -192,7 +138,7 @@
         </section>
 
         <!-- الأذكار -->
-        <section id="azkar" class="section section-alt">
+        <section id="azkar" class="section">
             <div class="container">
                 <h2 class="section-title"><i class="fas fa-hands-praying"></i> الأذكار</h2>
                 <div class="azkar-tabs">
@@ -207,7 +153,7 @@
         </section>
 
         <!-- الرقية الشرعية -->
-        <section id="ruqyah" class="section">
+        <section id="ruqyah" class="section section-alt">
             <div class="container">
                 <h2 class="section-title"><i class="fas fa-shield-halved"></i> الرقية الشرعية</h2>
                 <div class="ruqyah-intro">
@@ -218,7 +164,7 @@
         </section>
 
         <!-- أدعية قرآنية -->
-        <section id="dua" class="section section-alt">
+        <section id="dua" class="section">
             <div class="container">
                 <h2 class="section-title"><i class="fas fa-mosque"></i> أدعية قرآنية</h2>
                 <div class="dua-list" id="duaList"></div>
@@ -226,7 +172,7 @@
         </section>
 
         <!-- مواقيت الصلاة -->
-        <section id="prayer-times" class="section">
+        <section id="prayer-times" class="section section-alt">
             <div class="container">
                 <h2 class="section-title"><i class="fas fa-clock"></i> مواقيت الصلاة</h2>
                 <div class="prayer-location"><i class="fas fa-map-marker-alt"></i> <span id="locationText">جارٍ تحديد الموقع...</span></div>
@@ -251,9 +197,7 @@
 
     <audio id="mainAudio" preload="auto"></audio>
     <audio id="mushafAudio" preload="auto"></audio>
-    <audio id="pdfAudio" preload="auto"></audio>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

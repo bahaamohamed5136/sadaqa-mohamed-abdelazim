@@ -230,13 +230,6 @@ var currentSurah = null;
 var isPlaying = false;
 var audio = document.getElementById('mainAudio');
 
-var pdfCurrentReciter = 'ar.alafasy';
-var pdfCurrentSurah = null;
-var pdfIsPlaying = false;
-var pdfAyahs = [];
-var pdfCurrentAyahIndex = 0;
-var pdfAudio = document.getElementById('pdfAudio');
-
 // ==================== INIT ====================
 function init() {
     populateSurahSelects();
@@ -250,30 +243,37 @@ function init() {
     updateClock();
     setInterval(updateClock, 1000);
     setInterval(checkPrayerTime, 60000);
-    if (typeof pdfjsLib !== 'undefined') {
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-    }
 }
 
 // ==================== SIDEBAR ====================
 function initSidebar() {
     var links = document.querySelectorAll('.sidebar-link');
-    window.addEventListener('scroll', function() {
-        var sections = document.querySelectorAll('section[id]');
-        var current = '';
-        sections.forEach(function(section) {
-            var top = section.offsetTop - 200;
-            if (window.scrollY >= top) {
-                current = section.getAttribute('id');
-            }
-        });
-        links.forEach(function(link) {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === '#' + current) {
-                link.classList.add('active');
-            }
+    links.forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            var targetId = this.getAttribute('href').substring(1);
+            showSection(targetId);
         });
     });
+    // Show first section by default
+    showSection('mushaf');
+}
+
+function showSection(id) {
+    // Hide all sections
+    document.querySelectorAll('.section').forEach(function(s) {
+        s.classList.remove('active-section');
+    });
+    // Show target section
+    var target = document.getElementById(id);
+    if (target) target.classList.add('active-section');
+    // Update sidebar active state
+    document.querySelectorAll('.sidebar-link').forEach(function(l) {
+        l.classList.remove('active');
+        if (l.getAttribute('href') === '#' + id) l.classList.add('active');
+    });
+    // Scroll to top of page
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // ==================== UTILITIES ====================
@@ -285,7 +285,7 @@ function formatTime(sec) {
 }
 
 function populateSurahSelects() {
-    var selects = ['mushafSurah', 'pdfSurah'];
+    var selects = ['mushafSurah'];
     selects.forEach(function(id) {
         var sel = document.getElementById(id);
         if (!sel) return;
@@ -533,133 +533,6 @@ audio.addEventListener('ended', function() {
 
 audio.addEventListener('play', function() { isPlaying = true; updatePlayBtn(); });
 audio.addEventListener('pause', function() { isPlaying = false; updatePlayBtn(); });
-
-// ==================== PDF MUSHAF ====================
-function loadPdfMushaf() {
-    var sel = document.getElementById('pdfSurah');
-    var surahNum = parseInt(sel.value);
-    if (!surahNum) return;
-    pdfCurrentSurah = surahNum;
-    pdfCurrentReciter = document.getElementById('pdfReciter').value;
-    var surah = surahs.find(function(s) { return s.number === surahNum; });
-    document.getElementById('pdfNowPlaying').textContent = surah.number + ' - ' + surah.name;
-    document.getElementById('pdfPlayer').style.display = 'block';
-
-    // Fetch ayahs for audio sync
-    var url = 'https://api.alquran.cloud/v1/surah/' + surahNum + '/' + pdfCurrentReciter;
-    fetch(url)
-        .then(function(r) { return r.json(); })
-        .then(function(data) {
-            if (data.code !== 200) throw new Error('API Error');
-            pdfAyahs = data.data.ayahs;
-            pdfCurrentAyahIndex = 0;
-            renderPdfAyahs(pdfAyahs, surah);
-            pdfAudio.src = pdfAyahs[0].audio;
-            pdfAudio.load();
-        })
-        .catch(function() {
-            document.getElementById('pdfPagesContainer').innerHTML = '<div class="pdf-loading"><i class="fas fa-exclamation-triangle"></i> <span>حدث خطأ. حاول مرة أخرى.</span></div>';
-        });
-}
-
-function renderPdfAyahs(ayahs, surah) {
-    var container = document.getElementById('pdfPagesContainer');
-    var html = '<div class="surah-header-bismillah">';
-    if (surah.number !== 1 && surah.number !== 9) {
-        html += '<div class="bismillah-ayah" style="font-size:2rem;margin-bottom:20px;color:#1a6b3c;">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>';
-    }
-    html += '</div>';
-    ayahs.forEach(function(ayah, i) {
-        html += '<div class="ayah-item" id="pdf-ayah-' + i + '">';
-        html += '<span class="ayah-number-circle">' + ayah.numberInSurah + '</span>';
-        html += '<span class="ayah-text">' + ayah.text + '</span>';
-        html += '</div>';
-    });
-    container.innerHTML = html;
-}
-
-function togglePdfPlay() {
-    if (pdfAyahs.length === 0) return;
-    if (pdfIsPlaying) {
-        pdfAudio.pause();
-        pdfIsPlaying = false;
-    } else {
-        if (pdfCurrentAyahIndex >= pdfAyahs.length) pdfCurrentAyahIndex = 0;
-        pdfAudio.src = pdfAyahs[pdfCurrentAyahIndex].audio;
-        pdfAudio.load();
-        pdfAudio.play().catch(function() {});
-        pdfIsPlaying = true;
-    }
-    updatePdfPlayBtn();
-}
-
-function updatePdfPlayBtn() {
-    var icon = document.getElementById('pdfPlayIcon');
-    if (icon) icon.className = pdfIsPlaying ? 'fas fa-pause' : 'fas fa-play';
-}
-
-function seekPdf(e) {
-    if (pdfAudio.duration) {
-        var rect = e.currentTarget.getBoundingClientRect();
-        var pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-        pdfAudio.currentTime = pct * pdfAudio.duration;
-    }
-}
-
-function changePdfVolume() {
-    pdfAudio.volume = document.getElementById('pdfVolume').value / 100;
-}
-
-pdfAudio.addEventListener('timeupdate', function() {
-    if (pdfAudio.duration) {
-        var pct = (pdfAudio.currentTime / pdfAudio.duration) * 100;
-        document.getElementById('pdfProgressBar').style.width = pct + '%';
-        document.getElementById('pdfCurrentTime').textContent = formatTime(pdfAudio.currentTime);
-        document.getElementById('pdfDuration').textContent = formatTime(pdfAudio.duration);
-    }
-});
-
-pdfAudio.addEventListener('ended', function() {
-    var cur = document.getElementById('pdf-ayah-' + pdfCurrentAyahIndex);
-    if (cur) { cur.classList.remove('active'); cur.classList.add('completed'); }
-    pdfCurrentAyahIndex++;
-    if (pdfCurrentAyahIndex < pdfAyahs.length) {
-        pdfAudio.src = pdfAyahs[pdfCurrentAyahIndex].audio;
-        pdfAudio.load();
-        pdfAudio.play().catch(function() {});
-        scrollPdfToAyah(pdfCurrentAyahIndex);
-    } else {
-        pdfIsPlaying = false;
-        pdfCurrentAyahIndex = 0;
-        updatePdfPlayBtn();
-    }
-});
-
-pdfAudio.addEventListener('play', function() {
-    pdfIsPlaying = true;
-    updatePdfPlayBtn();
-    highlightPdfAyah();
-});
-
-pdfAudio.addEventListener('pause', function() {
-    pdfIsPlaying = false;
-    updatePdfPlayBtn();
-});
-
-function highlightPdfAyah() {
-    document.querySelectorAll('#pdfPagesContainer .ayah-item.active').forEach(function(el) { el.classList.remove('active'); });
-    var el = document.getElementById('pdf-ayah-' + pdfCurrentAyahIndex);
-    if (el) {
-        el.classList.add('active');
-        document.getElementById('ayahText').textContent = el.querySelector('.ayah-text').textContent;
-    }
-}
-
-function scrollPdfToAyah(index) {
-    highlightPdfAyah();
-    var el = document.getElementById('pdf-ayah-' + index);
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-}
 
 // ==================== AZKAR ====================
 function renderAzkar() {
