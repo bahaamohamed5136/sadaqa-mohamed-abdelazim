@@ -51,21 +51,29 @@
                 <h2 class="section-title"><i class="fas fa-book-quran"></i> المصحف الناطق</h2>
                 <p class="section-subtitle">اقرأ مع القارئ - يتم تمييز الآية باللون الأصفر أثناء التلاوة</p>
                 <div class="mushaf-controls">
-                    <div class="control-group">
-                        <label><i class="fas fa-user"></i> القارئ</label>
-                        <select id="mushafReciter" onchange="onMushafReciterChange()">
-                            <option value="ar.alafasy">مشاري العفاسي</option>
-                            <option value="ar.husary">محمود خليل الحصري</option>
-                            <option value="ar.minshawi">محمد صديق المنشاوي</option>
-                            <option value="ar.muhammadjibreel">محمد جبريل</option>
-                            <option value="ar.hudhaify">علي الحذيفي</option>
-                        </select>
+                    <div class="control-row">
+                        <div class="control-icon-group">
+                            <div class="control-icon-circle" id="reciterIconMushaf">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <select id="mushafReciter" onchange="onMushafReciterChange()">
+                                <option value="ar.alafasy">مشاري العفاسي</option>
+                                <option value="ar.husary">محمود خليل الحصري</option>
+                                <option value="ar.minshawi">محمد صديق المنشاوي</option>
+                                <option value="ar.muhammadjibreel">محمد جبريل</option>
+                                <option value="ar.hudhaify">علي الحذيفي</option>
+                            </select>
+                        </div>
+                        <div class="control-icon-group">
+                            <div class="control-icon-circle" id="surahIconMushaf">
+                                <i class="fas fa-book-open"></i>
+                            </div>
+                            <select id="mushafSurah" onchange="loadMushafAyahs()"></select>
+                        </div>
+                        <button class="btn-primary btn-play-now" onclick="loadMushafAyahs()">
+                            <i class="fas fa-play"></i> ابدأ التلاوة
+                        </button>
                     </div>
-                    <div class="control-group">
-                        <label><i class="fas fa-list"></i> السورة</label>
-                        <select id="mushafSurah" onchange="loadMushafAyahs()"></select>
-                    </div>
-                    <button class="btn-primary" onclick="loadMushafAyahs()"><i class="fas fa-play"></i> ابدأ التلاوة</button>
                 </div>
                 <div class="mushaf-player" id="mushafPlayer">
                     <div class="mushaf-player-header">
@@ -98,19 +106,25 @@
             <div class="container">
                 <h2 class="section-title"><i class="fas fa-headphones"></i> التلاوات الصوتية</h2>
                 <div class="audio-select-row">
-                    <div class="control-group">
-                        <label><i class="fas fa-user"></i> القارئ</label>
-                        <select id="audioReciter" onchange="onAudioReciterChange()">
-                            <option value="ar.alafasy">مشاري العفاسي</option>
-                            <option value="ar.husary">محمود خليل الحصري</option>
-                            <option value="ar.minshawi">محمد صديق المنشاوي</option>
-                            <option value="ar.muhammadjibreel">محمد جبريل</option>
-                            <option value="ar.hudhaify">علي الحذيفي</option>
-                        </select>
-                    </div>
-                    <div class="control-group">
-                        <label><i class="fas fa-search"></i> بحث عن السورة</label>
-                        <input type="text" id="surahSearch" placeholder="اكتب اسم السورة..." oninput="filterSurahList()">
+                    <div class="control-row">
+                        <div class="control-icon-group">
+                            <div class="control-icon-circle" id="reciterIconAudio">
+                                <i class="fas fa-microphone"></i>
+                            </div>
+                            <select id="audioReciter" onchange="onAudioReciterChange()">
+                                <option value="ar.alafasy">مشاري العفاسي</option>
+                                <option value="ar.husary">محمود خليل الحصري</option>
+                                <option value="ar.minshawi">محمد صديق المنشاوي</option>
+                                <option value="ar.muhammadjibreel">محمد جبريل</option>
+                                <option value="ar.hudhaify">علي الحذيفي</option>
+                            </select>
+                        </div>
+                        <div class="control-icon-group search-group">
+                            <div class="control-icon-circle" id="searchIconAudio">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <input type="text" id="surahSearch" placeholder="ابحث عن السورة..." oninput="filterSurahList()">
+                        </div>
                     </div>
                 </div>
                 <div class="surah-list" id="surahList"></div>
