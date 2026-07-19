@@ -118,20 +118,37 @@ const surahs = [
 
 // ==================== RECITER DATA (alquran.cloud CDN) ====================
 const recitersCDN = {
-    'ar.alafasy': { name: 'مشاري العفاسي', bitrates: [128, 64, 32] },
-    'ar.husary': { name: 'محمود خليل الحصري', bitrates: [128, 64, 32] },
-    'ar.minshawi': { name: 'محمد صديق المنشاوي', bitrates: [192, 128, 64] },
-    'ar.ajamy': { name: 'أحمد العجمي', bitrates: [128, 64, 32] },
-    'ar.muhammadjibreel': { name: 'محمد جبريل', bitrates: [128, 64, 32] },
-    'ar.muhammadayoub': { name: 'محمد أيوب', bitrates: [128, 64, 32] },
-    'ar.hudhaify': { name: 'علي الحذيفي', bitrates: [128, 64, 32] },
-    'ar.abdulbasit': { name: 'عبد الباسط عبد الصمد', bitrates: [192, 128, 64] }
+    'ar.alafasy': { name: 'مشاري العفاسي' },
+    'ar.husary': { name: 'محمود خليل الحصري' },
+    'ar.abdulbasit': { name: 'عبد الباسط عبد الصمد' },
+    'ar.minshawi': { name: 'محمد صديق المنشاوي' },
+    'ar.sudais': { name: 'عبد الرحمن السديس' },
+    'ar.shuraim': { name: 'سعود الشريم' },
+    'ar.muhammadjibreel': { name: 'محمد جبريل' },
+    'ar.muhammadayoub': { name: 'محمد أيوب' },
+    'ar.hudhaify': { name: 'علي الحذيفي' },
+    'ar.ajamy': { name: 'أحمد العجمي' }
 };
 
-function getCdnUrl(edition, surahNum, bitrate) {
+function getCdnSurahUrl(edition, surahNum, bitrate) {
     var br = bitrate || 128;
-    var padded = String(surahNum).padStart(3, '0');
-    return 'https://cdn.islamic.network/quran/audio/' + br + '/' + edition + '/' + padded + '.mp3';
+    return 'https://cdn.islamic.network/quran/audio-surah/' + br + '/' + edition + '/' + surahNum + '.mp3';
+}
+
+function tryWithFallback(edition, surahNum, bitrate, callback) {
+    var br = bitrate || 128;
+    var url = 'https://cdn.islamic.network/quran/audio-surah/' + br + '/' + edition + '/' + surahNum + '.mp3';
+    var audio = new Audio();
+    audio.onload = function() { callback(url); };
+    audio.onerror = function() {
+        var br2 = 64;
+        var url2 = 'https://cdn.islamic.network/quran/audio-surah/' + br2 + '/' + edition + '/' + surahNum + '.mp3';
+        var a2 = new Audio();
+        a2.onload = function() { callback(url2); };
+        a2.onerror = function() { callback(url); };
+        a2.src = url2;
+    };
+    audio.src = url;
 }
 
 // ==================== AZKAR DATA ====================
@@ -456,14 +473,25 @@ function playAudioSurahById(num) {
     });
     currentSurah = num;
     var surah = surahs.find(function(s) { return s.number === num; });
-    var url = getCdnUrl(currentReciter, num, 128);
+    var url = getCdnSurahUrl(currentReciter, num, 128);
     document.getElementById('nowPlaying').textContent = surah.number + ' - ' + surah.name;
     audio.src = url;
     audio.load();
     audio.play().then(function() {
         isPlaying = true;
         updatePlayBtn();
-    }).catch(function(e) { console.log('Play error:', e); });
+    }).catch(function(e) {
+        console.log('First URL failed, trying fallback:', e);
+        audio.src = getCdnSurahUrl(currentReciter, num, 64);
+        audio.load();
+        audio.play().then(function() { isPlaying = true; updatePlayBtn(); }).catch(function() {
+            audio.src = getCdnSurahUrl(currentReciter, num, 32);
+            audio.load();
+            audio.play().then(function() { isPlaying = true; updatePlayBtn(); }).catch(function(e2) {
+                console.log('All CDNs failed for', currentReciter, num, e2);
+            });
+        });
+    });
 }
 
 function togglePlay() {
